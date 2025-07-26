@@ -1,4 +1,7 @@
 env
 keys/
+# Ignore all logs
 logs/
-raw
+
+# Ignore raw data
+artifacts/raw/
