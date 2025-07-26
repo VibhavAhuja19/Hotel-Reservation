@@ -3,5 +3,4 @@ keys/
 # Ignore all logs
 logs/
 
-# Ignore raw data
-artifacts/raw/
+
