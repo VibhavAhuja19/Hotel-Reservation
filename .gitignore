@@ -2,5 +2,9 @@ env
 keys/
 # Ignore all logs
 logs/
+__pycache__
 
-
+notebook/random_forest.pkl
+notebook/train.csv
+artifacts/raw
+artifacts/processed
