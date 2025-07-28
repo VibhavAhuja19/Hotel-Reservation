@@ -61,7 +61,7 @@ In the hospitality industry, booking cancellations significantly impact revenue 
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/your-username/MLOps-Hotel-Revenue-Management.git
-cd Hotel-Revenue
+cd Hotel-Reservation
 ```
 
 ## 2️⃣ Set Up the Environment
