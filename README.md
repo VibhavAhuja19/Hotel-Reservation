@@ -2,7 +2,7 @@
 
 A Predictive Analytics System for Hotel Reservation Status using MLOps Best Practices
 
-![Hotel Revenue Management](https://via.placeholder.com/800x400?text=MLOps+Hotel+Revenue+Management) <!-- Consider adding an actual image -->
+
 
 ## 📖 Project Description
 
