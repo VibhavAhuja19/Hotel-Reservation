@@ -48,7 +48,7 @@ class DataProcessor:
             for col,mapping in mappings.items():
                 logger.info(f"{col} : {mapping}")
 
-            logger.info("Doing Skewness HAndling")
+            logger.info("Doing Skewness Handling")
 
             skew_threshold = self.config["data_processing"]["skewness_threshold"]
             skewness = df[num_cols].apply(lambda x:x.skew())
@@ -156,7 +156,3 @@ class DataProcessor:
 if __name__=="__main__":
     processor = DataProcessor(TRAIN_FILE_PATH,TEST_FILE_PATH,PROCESSED_DIR,CONFIG_PATH)
     processor.process()       
-    
-        
-
-
