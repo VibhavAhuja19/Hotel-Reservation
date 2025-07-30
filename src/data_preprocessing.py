@@ -98,17 +98,11 @@ class DataProcessor:
                         'importance':feature_importance
                             })
             top_features_importance_df = feature_importance_df.sort_values(by="importance" , ascending=False)
-
             num_features_to_select = self.config["data_processing"]["no_of_features"]
-
             top_10_features = top_features_importance_df["feature"].head(num_features_to_select).values
-
             logger.info(f"Features selected : {top_10_features}")
-
             top_10_df = df[top_10_features.tolist() + ["booking_status"]]
-
             logger.info("Feature slection completed sucesfully")
-
             return top_10_df
         
         except Exception as e:
@@ -118,9 +112,7 @@ class DataProcessor:
     def save_data(self,df , file_path):
         try:
             logger.info("Saving our data in processed folder")
-
             df.to_csv(file_path, index=False)
-
             logger.info(f"Data saved sucesfuly to {file_path}")
 
         except Exception as e:

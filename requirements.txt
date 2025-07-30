@@ -10,3 +10,4 @@ ipykernel
 statsmodels
 xgboost 
 lightgbm
+mlflow
