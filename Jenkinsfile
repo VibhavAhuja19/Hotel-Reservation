@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+     environment {
+        VENV_DIR = 'venv'
+     }
+
     stages {
         stage('Cloning Github repo to Jenkins') {
             steps {
@@ -14,6 +18,21 @@ pipeline {
                             url: 'https://github.com/VibhavAhuja19/Hotel-Reservation.git'
                         ]]
                     )
+                }
+            }
+        }
+
+        
+        stage('Setting up our Virtual Environment and Installing dependancies'){
+            steps{
+                script{
+                    echo 'Setting up our Virtual Environment and Installing dependancies............'
+                    sh '''
+                    python -m venv ${VENV_DIR}
+                    . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip
+                    pip install -e .
+                    '''
                 }
             }
         }
