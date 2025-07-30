@@ -11,3 +11,4 @@ statsmodels
 xgboost 
 lightgbm
 mlflow
+flask
