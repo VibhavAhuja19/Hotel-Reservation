@@ -15,6 +15,7 @@ pipeline {
                 }
             }
         }
+    
 
         stage('Setting up Virtual Environment and Installing Dependencies') {
             steps {
@@ -30,33 +31,7 @@ pipeline {
             }
         }
 
-        stage('Building and Pushing Docker Image to GCR') {
-            steps {
-                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    script {
-                        echo 'Building and Pushing Docker Image to GCR...'
-                        sh """
-                        export PATH=\$PATH:/google-cloud-sdk/bin
-
-                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
-                        gcloud config set project ${GCP_PROJECT}
-                        gcloud auth configure-docker --quiet
-
-                        docker build -t gcr.io/${GCP_PROJECT}/ml-project:latest .
-                        docker push gcr.io/${GCP_PROJECT}/ml-project:latest
-                        """
-                    }
-                }
-            }
-        }
+       
     }
 
-    post {
-        failure {
-            echo '❌ Pipeline failed.'
-        }
-        success {
-            echo '✅ Pipeline completed successfully.'
-        }
-    }
 }
