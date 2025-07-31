@@ -8,9 +8,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Set the working directory
 WORKDIR /app
 
-# Install system dependencies required by LightGBM
+# Install system dependencies including build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgomp1 \
+    build-essential \
+    gcc \
+    python3-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -18,7 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY . .
 
 # Install the package in editable mode
-RUN pip install  -e .
+RUN pip install --upgrade pip && \
+    pip install -e .
 
 # Train the model before running the application
 RUN python pipeline/training_pipeline.py

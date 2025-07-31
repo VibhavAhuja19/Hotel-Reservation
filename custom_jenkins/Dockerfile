@@ -1,26 +1,29 @@
+# Build stage
+FROM python:slim as builder
 
-# Use the Jenkins image as the base image
-FROM jenkins/jenkins:lts
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential gcc python3-dev libgomp1 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Switch to root user to install dependencies
-USER root
+COPY . .
+RUN pip install --upgrade pip && \
+    pip install -e .
 
-# Install prerequisites and Docker
-RUN apt-get update -y && \
-    apt-get install -y apt-transport-https ca-certificates curl gnupg software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo "deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable" > /etc/apt/sources.list.d/docker.list && \
-    apt-get update -y && \
-    apt-get install -y docker-ce docker-ce-cli containerd.io && \
-    apt-get clean
+# Runtime stage
+FROM python:slim
 
-# Add Jenkins user to the Docker group (create if it doesn't exist)
-RUN groupadd -f docker && \
-    usermod -aG docker jenkins
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create the Docker directory and volume for DinD
-RUN mkdir -p /var/lib/docker
-VOLUME /var/lib/docker
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /app /app
 
-# Switch back to the Jenkins user
-USER jenkins
+RUN python pipeline/training_pipeline.py
+
+EXPOSE 5000
+CMD ["python", "application.py"]
