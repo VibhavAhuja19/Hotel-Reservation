@@ -53,7 +53,7 @@ In the hospitality industry, booking cancellations significantly impact revenue 
 | Data Processing    | Pandas, NumPy         |
 | Modeling           | LightGBM (Classification) |
 | MLOps & Tracking   | MLFlow                |
-| Web Framework      | Flask                 |
+| Web Framework      | Flask, FastAPI               |
 | Frontend           | HTML, CSS             |
 
 ## 🛠️ Setup Instructions
