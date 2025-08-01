@@ -72,7 +72,9 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-## 3️⃣ Run the Flask Application
+## 3️⃣ Run the Flask and FastAPI Application
 ```bash
-python app.py
+For Flask - python app.py
+For FastAPI - uvicorn main:app --reload
 ``` 
+

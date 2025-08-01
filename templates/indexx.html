@@ -1,0 +1,104 @@
+<!-- templates/indexx.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>HOTEL RESERVATION PREDICTION</title>
+</head>
+
+<body>
+<div class="container">
+    <h2>Hotel Reservation Prediction</h2>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="lead_time">Lead Time</label>
+            <input type="number" id="lead_time" name="lead_time" value="{{ lead_time if lead_time else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="no_of_special_request">No_of_special_request</label>
+            <input type="number" id="no_of_special_request" name="no_of_special_request" value="{{ no_of_special_request if no_of_special_request else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="avg_price_per_room">Avg_price_per_room</label>
+            <input type="number" id="avg_price_per_room" name="avg_price_per_room" step="0.01" value="{{ avg_price_per_room if avg_price_per_room else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="arrival_month">Arrival Month</label>
+            <select id="arrival_month" name="arrival_month" required>
+                {% for month in range(1, 13) %}
+                <option value="{{ month }}" {% if arrival_month == month %}selected{% endif %}>
+                    {{ ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][month-1] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="arrival_date">Arrival Date</label>
+            <select id="arrival_date" name="arrival_date" required>
+                {% for day in range(1, 32) %}
+                <option value="{{ day }}" {% if arrival_date == day %}selected{% endif %}>{{ day }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="market_segment_type">Market_segment_type</label>
+            <select id="market_segment_type" name="market_segment_type" required>
+                {% set segments = ['Aviation', 'Complimentary', 'Corporate', 'Offline', 'Online'] %}
+                {% for i in range(5) %}
+                <option value="{{ i }}" {% if market_segment_type == i %}selected{% endif %}>{{ segments[i] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="no_of_week_nights">No_of_week_nights</label>
+            <input type="number" id="no_of_week_nights" name="no_of_week_nights" value="{{ no_of_week_nights if no_of_week_nights else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="no_of_weekend_nights">No_of_weekend_nights</label>
+            <input type="number" id="no_of_weekend_nights" name="no_of_weekend_nights" value="{{ no_of_weekend_nights if no_of_weekend_nights else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type_of_meal_plan">Type_of_meal_plan</label>
+            <select id="type_of_meal_plan" name="type_of_meal_plan" required>
+                {% set meal_plans = ['Meal Plan 1', 'Meal Plan 2', 'Meal Plan 3', 'Not Selected'] %}
+                {% for i in range(4) %}
+                <option value="{{ i }}" {% if type_of_meal_plan == i %}selected{% endif %}>{{ meal_plans[i] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="room_type_reserved">Room Type Reserved</label>
+            <select id="room_type_reserved" name="room_type_reserved" required>
+                {% for i in range(7) %}
+                <option value="{{ i }}" {% if room_type_reserved == i %}selected{% endif %}>Room Type {{ i+1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction is not none %}
+    <div class="result">
+        {% if prediction == 0 %}
+        <p>The Customer reservation is likely to be a valid one</p>
+        {% elif prediction == 1 %}
+        <p>The Customer is likely to cancel the reservation. Action required for this reservation</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>

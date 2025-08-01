@@ -12,3 +12,7 @@ xgboost
 lightgbm
 mlflow
 flask
+fastapi 
+uvicorn 
+jinja2 
+python-multipart
